@@ -1,1 +1,23 @@
 README
+
+The idea comes from https://github.com/mitchellh/vagrant/issues/322
+
+Basically, the code is much similar with the one here(https://gist.github.com/1332279), but I spent some time to convert it to be a vagrant plugin.
+
+To Use the plugin, you just need to install the gem like:
+gem install vagrant-ovf
+
+After that, you can invoke the plugin like:
+vagrant ovf [box_name]
+
+With the plugin, the box.ovf & box.mf will be updated to be compatible with VMWare and potential OVA.
+
+To make a OVF archive, you can install ovftool from VMWare and invoke the following command:
+ovftool ~/.vagrant.box/boxes/[box_name]/box.ovf /tmp/[box_name].ova
+or
+ovftool ~/.vagrant.box/boxes/[box_name]/box.ovf /tmp/[box_name].vmx
+
+Tha latter command will generate a VMWare openable archive under /tmp, and you can open it with VMWare Fusion.
+
+
+

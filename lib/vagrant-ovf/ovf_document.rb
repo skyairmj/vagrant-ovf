@@ -15,10 +15,7 @@ module VagrantOVF
     # :href :: filename of the file
     # :id :: identifier inside the OVF
     def add_file(attrs)
-      file_set =search("//ovf:References/ovf:File[@ovf:href='#{attrs[:href]}']")
-      if file_set.count == 1
-        return
-      end
+      return if search("//ovf:References/ovf:File[@ovf:href='#{attrs[:href]}']").count == 1
       file = Nokogiri::XML::Node.new 'File', self
       file['ovf:href'] = attrs[:href] if attrs[:href]
       if attrs[:id]
@@ -43,6 +40,7 @@ module VagrantOVF
     end
 
     def add_vmware_support
+      return if search("//vssd:VirtualSystemType[contains(text(), 'vmx-04 vmx-06 vmx-07')]").count == 1
       %w(vmx-04 vmx-06 vmx-07).each {|t| add_virtual_system_type t}
 
       find_item_by_resource_type(20).tap do |i|
