@@ -3,7 +3,7 @@ require File.expand_path('../lib/vagrant-ovf/version', __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = 'vagrant-ovf'
-  s.version     = VagrantOva::VERSION
+  s.version     = VagrantOVF::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Barry Allard']
   s.email       = ['barry@barryallard.name']
@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = '>= 1.3.6'
   s.rubyforge_project         = 'vagrant-ovf'
 
-  s.add_dependency 'vagrant', '~> 0.8.0'
+  s.add_dependency 'vagrant', '~> 0.9.7'
   s.add_development_dependency 'bacon', '~> 1.1'
   s.add_development_dependency 'shoulda', '~> 2.11'
   s.add_development_dependency 'bundler', '>= 1.0.0'

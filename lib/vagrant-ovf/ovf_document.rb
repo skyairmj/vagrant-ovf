@@ -1,6 +1,6 @@
 require 'nokogiri'
 
-module VagrantOva
+module VagrantOVF
   class OVFDocument < Nokogiri::XML::Document
     XMLNS = {
       'rasd' => "http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ResourceAllocationSettingData",
@@ -15,6 +15,10 @@ module VagrantOva
     # :href :: filename of the file
     # :id :: identifier inside the OVF
     def add_file(attrs)
+      file_set =search("//ovf:References/ovf:File[@ovf:href='#{attr[:href]}']")
+      if file_set.count == 1
+        return
+      end
       file = Nokogiri::XML::Node.new 'File', self
       file['ovf:href'] = attrs[:href] if attrs[:href]
       if attrs[:id]

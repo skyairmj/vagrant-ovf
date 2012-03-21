@@ -1,3 +1,3 @@
-module VagrantVMware
-  VERSION = 0.0.0
+module VagrantOVF
+  VERSION = "0.1.0"
 end
