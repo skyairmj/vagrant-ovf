@@ -15,7 +15,7 @@ module VagrantOVF
     # :href :: filename of the file
     # :id :: identifier inside the OVF
     def add_file(attrs)
-      file_set =search("//ovf:References/ovf:File[@ovf:href='#{attr[:href]}']")
+      file_set =search("//ovf:References/ovf:File[@ovf:href='#{attrs[:href]}']")
       if file_set.count == 1
         return
       end
