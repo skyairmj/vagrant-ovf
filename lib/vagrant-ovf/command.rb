@@ -1,28 +1,33 @@
-require 'ovf_document'
+require 'optparse'
+require File.dirname(__FILE__)+'/ovf_document'
 require 'openssl'
 
 module VagrantOVF
   class Command < Vagrant::Command::Base
-    register "ovf", "Convert the Vagrant box in an OVF compatible format"
-    argument :vagrant_box, :type => :string, :required => true, :desc => "The vagrant box to be converted as ovf"
-    class_option :vmx, :type => :string, :required => false, :default => nil
-
     # Executes the given rake command on the VMs that are represented
     # by this environment.
     def execute
-      existing = @env.boxes.find(options[:vagrant_box])
+      options = {}
+      opts = OptionParser.new do |opts|
+        opts.banner = "Usage: vagrant ovf [vm-name]"
+      end
+
+      # Parse the options
+      argv = parse_options(opts)
+      return if !argv
+      existing = @env.boxes.find(argv[0])
       if existing.nil?
         raise RuntimeError, "No box found with name #{options[:vagrant_box]}"
       end
-      box_path = @env.boxes_path.join(options[:vagrant_box])
+      box_path = @env.boxes_path.join(argv[0])
       box_ovf = box_path.join('box.ovf')
       vagrant_file = box_path.join('Vagrantfile')
       box_mf = box_path.join('box.mf')
       box_disk1 = box_path.join('box-disk1.vmdk')
       doc = OVFDocument.parse(File.new(box_ovf), &:noblanks)
       doc.add_file(:href => 'Vagrantfile')
-      doc.add_vmware_support unless options[:vmx].nil?
-      doc.write_to(File.new(box_ovf), :encoding => 'UTF-8', :indent => 4)
+      doc.add_vmware_support
+      File.open(box_ovf, 'w') {|f| doc.write_xml_to f}
 
       # rewrite SHA1 values of box.ovf & Vagrantfile
       box_ovf_sha1 = OpenSSL::Digest::SHA1.hexdigest(File.read(box_ovf))
