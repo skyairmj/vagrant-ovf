@@ -19,5 +19,7 @@ ovftool ~/.vagrant.box/boxes/[box_name]/box.ovf /tmp/[box_name].vmx
 
 Tha latter command will generate a VMWare openable archive under /tmp, and you can open it with VMWare Fusion.
 
-
-
+Or, with standard zip tool like tar, you can archive the OVA as bellow:
+cd ~/.vagrant.box/boxes/[box_name]
+tar /tmp/[box_name].ova box.ovf box-disk1.vmdk box.mf Vagrantfile
+Also, for more info, please check out my blog http://mingjin.thoughtworkers.org/?p=176 (sorry, it's in Chinese)
