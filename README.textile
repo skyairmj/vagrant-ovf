@@ -1,8 +1,12 @@
 README
 
+h2. Motivation
+
 The idea comes from https://github.com/mitchellh/vagrant/issues/322
 
 Basically, the code is much similar with the one here(https://gist.github.com/1332279), but I spent some time to convert it to be a vagrant plugin.
+
+h2. How to use it
 
 To Use the plugin, you just need to install the gem like:
 gem install vagrant-ovf
@@ -23,3 +27,7 @@ Or, with standard zip tool like tar, you can archive the OVA as bellow:
 cd ~/.vagrant.box/boxes/[box_name]
 tar /tmp/[box_name].ova box.ovf box-disk1.vmdk box.mf Vagrantfile
 Also, for more info, please check out my blog http://mingjin.thoughtworkers.org/?p=176 (sorry, it's in Chinese)
+
+h2. License
+
+MIT: http://rem.mit-license.org
